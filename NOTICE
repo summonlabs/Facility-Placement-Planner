@@ -1,0 +1,42 @@
+Facility Placement Planner
+Copyright 2026 Summon Software Labs
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Facility Placement Planner is the deterministic facility placement planning and
+explanation authority for DCCP Tranche 2 (Facility Capacity and Placement). It is
+built from the C++20 standard library only.
+
+Third-party components
+----------------------
+
+None. No third-party source code, library, header, or generated artefact is
+included in, linked into, or required by this product.
+
+The build depends only on the platform's own toolchain and operating system:
+
+  * the C++20 standard library of the toolchain that builds the project;
+  * the operating system's file, locking, and process primitives, used for the
+    durable store and reached through the platform API (CreateFileW, LockFileEx,
+    MoveFileExW, and FlushFileBuffers on Windows; open, flock, fsync, and rename
+    elsewhere).
+
+No network service, telemetry endpoint, analytics library, or runtime package
+manager is contacted or required at build time or at run time.
+
+What this product is not
+------------------------
+
+It is not a physical hardware controller and does not claim any hardware proof. It
+does not contain, generate, or depend on PDU, UPS, generator, cooling-equipment,
+GPU, multi-node, or RDMA evidence of any kind. Its benchmarks are labelled
+SYNTHETIC because they are generated from a fixed seed on the machine that ran
+them. Where a claim rests on an operating-system facility rather than on hardware,
+it is stated as such.
+
+Trademarks
+----------
+
+All product names, trademarks, and registered trademarks mentioned in this
+repository are the property of their respective owners and are used only for
+identification purposes.

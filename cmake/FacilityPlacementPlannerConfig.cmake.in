@@ -1,0 +1,10 @@
+@PACKAGE_INIT@
+
+# FacilityPlacementPlanner is header-and-library only: it depends on the C++20 standard
+# library and on the operating system's own file, locking, and process primitives, and on
+# nothing else. Nothing is therefore searched for here, and configure succeeds or fails on
+# the imported target's own properties rather than on a dependency that was not found.
+
+include("${CMAKE_CURRENT_LIST_DIR}/FacilityPlacementPlannerTargets.cmake")
+
+check_required_components(FacilityPlacementPlanner)
