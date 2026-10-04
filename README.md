@@ -1,7 +1,6 @@
 # Facility Placement Planner
 
-Deterministic facility placement planning and explanation authority for DCCP
-Tranche 2 (Facility Capacity and Placement). It answers one question, and answers
+Deterministic facility placement planning and explanation authority. It answers one question, and answers
 it reproducibly:
 
 > Given an infrastructure asset or placement request, and an exact authoritative
