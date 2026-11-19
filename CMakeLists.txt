@@ -94,7 +94,9 @@ endif()
 set(FPP_SANITIZER_FLAGS "")
 if(FPP_SANITIZE STREQUAL "address")
     if(MSVC)
-        list(APPEND FPP_SANITIZER_FLAGS /fsanitize=address)
+        # Debug information is required: without it MSVC warns C5072 for every
+        # source, which the warnings-as-errors option turns into an error.
+        list(APPEND FPP_SANITIZER_FLAGS /fsanitize=address /Zi)
         set(FPP_MSVC_ASAN_RUNTIME ON)
     else()
         list(APPEND FPP_SANITIZER_FLAGS -fsanitize=address -fno-omit-frame-pointer)
@@ -118,7 +120,9 @@ if(FPP_SANITIZER_FLAGS)
         # makes the linker warn about an option it does not recognise. Incremental linking
         # is incompatible with that metadata, so it is turned off here rather than left for
         # the linker to refuse with a warning.
-        target_link_options(fpp_sanitizer INTERFACE /INCREMENTAL:NO)
+        # /DEBUG keeps the debug information of the sanitizer objects (LNK4302
+        # without it).
+        target_link_options(fpp_sanitizer INTERFACE /INCREMENTAL:NO /DEBUG)
     else()
         target_link_options(fpp_sanitizer INTERFACE ${FPP_SANITIZER_FLAGS})
     endif()
@@ -191,7 +195,7 @@ target_link_libraries(fpp_objects
     PRIVATE FacilityPlacementPlanner::warnings FacilityPlacementPlanner::sanitizer)
 
 if(FPP_MSVC_ASAN_RUNTIME)
-    target_compile_options(fpp_objects PRIVATE /fsanitize=address)
+    target_compile_options(fpp_objects PRIVATE /fsanitize=address /Zi)
 endif()
 
 if(WIN32 AND FPP_BUILD_SHARED)
@@ -230,7 +234,7 @@ target_link_libraries(FacilityPlacementPlanner
     PRIVATE FacilityPlacementPlanner::sanitizer FacilityPlacementPlanner::warnings)
 
 if(FPP_MSVC_ASAN_RUNTIME)
-    target_compile_options(FacilityPlacementPlanner PRIVATE /fsanitize=address)
+    target_compile_options(FacilityPlacementPlanner PRIVATE /fsanitize=address /Zi)
 endif()
 
 # Static build of the same objects, used by the test suite and the benchmarks. It
